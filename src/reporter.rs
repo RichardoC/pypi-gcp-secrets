@@ -20,7 +20,7 @@ struct Finding {
     file_path: String,
     role_name: String,
     access_key: String,
-    secret_key: String,
+    // secret_key: String,
     public_url: Option<String>,
 }
 
@@ -67,7 +67,7 @@ pub fn create_findings(items: Vec<LiveKey>) -> Result<()> {
                     file_path: v.scanner_match.relative_path(),
                     role_name: v.role_name,
                     access_key: v.scanner_match.access_key,
-                    secret_key: v.scanner_match.secret_key,
+                    // secret_key: v.scanner_match.secret_key,
                 })
                 .collect(),
         };

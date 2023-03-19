@@ -48,7 +48,7 @@ pub struct ScannerMatch {
     pub downloaded_package: DownloadedPackage,
     pub rg_match: RipGrepMatch,
     pub access_key: String,
-    pub secret_key: String,
+    // pub secret_key: String,
 }
 
 impl ScannerMatch {
@@ -68,7 +68,7 @@ impl ScannerMatch {
 impl PartialEq for ScannerMatch {
     fn eq(&self, other: &Self) -> bool {
         self.access_key == other.access_key
-            && self.secret_key == other.secret_key
+            // && self.secret_key == other.secret_key
             && self.downloaded_package == other.downloaded_package
     }
 }
@@ -112,23 +112,22 @@ impl Scanner {
         ])?;
         println!("matches: {matches:?}");
         let mut matched_keys = vec![];
-        // The output may contain multiple matches for our second-stage regex.
-        // Here we create a cartesian product product of all matches.
-        for rg_match in &matches {
-            let matches = ACCESS_KEY_REGEX
-                .find_iter(&rg_match.lines). map(|(key)| (trim_quotes(key.as_str()), trim_quotes(secret.as_str())));
+        // // The output may contain multiple matches for our second-stage regex.
+        // // Here we create a cartesian product product of all matches.
+        // for rg_match in &matches {
+        //     let matches = ACCESS_KEY_REGEX
+        //         .find_iter(&rg_match.lines). map(|(key)| (trim_quotes(key.as_str()), trim_quotes(secret.as_str())));
 
-            matched_keys.extend(
-                matches
-                    .into_iter()
-                    .map(|(access_key )| ScannerMatch {
-                        downloaded_package: package.downloaded_package.clone(),
-                        rg_match: rg_match.clone(),
-                        access_key,
-                        secret_key,
-                    }),
-            )
-        }
+        //     matched_keys.extend(
+        //         matches
+        //             .into_iter()
+        //             .map(|(access_key )| ScannerMatch {
+        //                 downloaded_package: package.downloaded_package.clone(),
+        //                 rg_match: rg_match.clone(),
+        //                 access_key,
+        //             }),
+        //     )
+        // }
 
         Ok(matched_keys)
     }
